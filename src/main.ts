@@ -26,7 +26,14 @@ async function bootstrap() {
   });
 
   // Enable CORS
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://youapp.wardaya.my.id',
+      'http://localhost:3000',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   // Setup Swagger Documentation
   const config = new DocumentBuilder()
