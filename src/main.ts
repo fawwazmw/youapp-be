@@ -6,8 +6,16 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   
+  // Enable CORS manually as a fallback
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+
   // Enable Global Exception Filter
   app.useGlobalFilters(new AllExceptionsFilter());
 
@@ -23,16 +31,6 @@ async function bootstrap() {
         durable: false,
       },
     },
-  });
-
-  // Enable CORS
-  app.enableCors({
-    origin: [
-      'https://youapp.wardaya.my.id',
-      'http://localhost:3000',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
   });
 
   // Setup Swagger Documentation
