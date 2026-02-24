@@ -30,6 +30,9 @@ export class Profile {
   @Prop({ required: false })
   weight?: number;
 
+  @Prop({ required: false })
+  profileImage?: string; // Store as base64 string
+
   @Prop({ type: [String], required: false, default: [] })
   interests: string[];
 }

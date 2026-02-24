@@ -17,6 +17,9 @@ export class CreateProfileDto {
   @ApiProperty({ required: false, example: 70 })
   @IsOptional() @IsNumber() weight?: number;
 
+  @ApiProperty({ required: false, description: 'Base64 encoded image string' })
+  @IsOptional() @IsString() profileImage?: string;
+
   @ApiProperty({ required: false, type: [String], example: ['Coding', 'Reading'] })
   @IsOptional() @IsArray() @IsString({ each: true }) interests?: string[];
 }
